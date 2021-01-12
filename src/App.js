@@ -8,26 +8,57 @@ class App extends React.Component  {
   constructor(properties){
     super(properties);
     this.state = {
-      method: 'GET',
-      url: 'http://localhost'
+      method: '',
+      url: '',
+      inputMethod: '', 
+      inputURL: ''
     }
   }
+
   handleClick = event => {
     event.preventDefault();
-    let newWords = this.state.words.split('').reverse().join('');
-    this.setState({ words: newWords})
-    //might also be able to do it like this in some cases?
-    //this.state.words = newWords;
+    this.setState({ url: this.state.inputURL });
+    this.setState({ method: this.state.inputMethod });
+  }
+
+  handleChange = event => {
+    this.setState({inputURL : event.target.value});
+  }
+  
+  handleRadioButtons = event => {
+    this.setState({inputMethod: event.target.value});
   }
 
   render() {
     return (
       <>
       <Header />
-
-      <p> React is the best language ever</p>
-      <input type='text' id='url'/>
-      <button onClick={this.handleClick}>Click Me</button>
+      <input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
+      <br/>
+      <div id='radioButtons'>
+        <label class="labels">
+          <input type="radio" class="radioButtons" name="get" value="GET" onClick = {this.handleRadioButtons}/>
+          GET
+        </label>
+        <label class="labels">
+          <input type="radio" id="post" class="radioButtons" value="POST" onClick = {this.handleRadioButtons}/>
+          POST
+        </label>
+        <label class="labels">
+          <input type="radio" id="put" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
+          PUT
+        </label>
+        <label class="labels">
+          <input type="radio" id="delete" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
+          DELETE
+        </label>
+      </div>
+      <button onClick={this.handleClick}>Go</button>
+      <div id = 'requestInfo'>
+        <span id='methodDiv'>{this.state.method}</span>&nbsp;&nbsp;
+        <span id = 'urlDiv'>{this.state.url}</span>
+      </div>
+      <div id="emptyDiv">&nbsp;</div>
       <Footer />
       </>
     )
