@@ -1,15 +1,15 @@
 import React from 'react';
-import Header from './header';
-import Footer from './footer';
-import Form from './form';
+import './form.scss';
 
-import './app.scss';
-
-//this tells us it is a react component
-class App extends React.Component  {
-
-  /*
-  handleClick = event => {
+class Form extends React.Component{
+    constructor(properties){
+    super(properties);
+    this.state = {
+      method: '',
+      url: ''
+    }
+  }
+handleClick = event => {
     event.preventDefault();
     this.setState({ url: this.state.inputURL });
     this.setState({ method: this.state.inputMethod });
@@ -21,40 +21,28 @@ class App extends React.Component  {
   
   handleRadioButtons = event => {
     this.setState({inputMethod: event.target.value});
-  }*/
-
-  render() {
-    return (
-      <>
-      <Header />
-      <Form />
-      <Footer />
-      </>
-    )
   }
-}
 
-
-export default App;
-
-/*
-<input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
+  render(){
+    return(
+      <>
+        <input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
       <br/>
       <div id='radioButtons'>
         <label class="labels">
-          <input type="radio" class="radioButtons" name="get" value="GET" onClick = {this.handleRadioButtons}/>
+          <input type="radio" class="radioButtons" name="radioButton" value="GET" onClick = {this.handleRadioButtons}/>
           GET
         </label>
         <label class="labels">
-          <input type="radio" id="post" class="radioButtons" value="POST" onClick = {this.handleRadioButtons}/>
+          <input type="radio" class="radioButtons" name="radioButton" value="POST" onClick = {this.handleRadioButtons}/>
           POST
         </label>
         <label class="labels">
-          <input type="radio" id="put" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
+          <input type="radio" name="radioButton" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
           PUT
         </label>
         <label class="labels">
-          <input type="radio" id="delete" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
+          <input type="radio" name="radioButton" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
           DELETE
         </label>
       </div>
@@ -64,4 +52,8 @@ export default App;
         <span id = 'urlDiv'>{this.state.url}</span>
       </div>
       <div id="emptyDiv">&nbsp;</div>
-       */
+      </>
+    )
+  }
+}
+export default Form;
