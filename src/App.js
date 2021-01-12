@@ -33,23 +33,23 @@ class App extends React.Component  {
     return (
       <>
       <Header />
-      <input type='text' id='url' onChange={this.handleChange}/> 
+      <input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
       <br/>
       <div id='radioButtons'>
-        <label>
-          <input type="radio" id="get" name="get" value="GET" onClick = {this.handleRadioButtons}/>
+        <label class="labels">
+          <input type="radio" class="radioButtons" name="get" value="GET" onClick = {this.handleRadioButtons}/>
           GET
         </label>
-        <label>
-          <input type="radio" id="post" name="post" value="POST" onClick = {this.handleRadioButtons}/>
+        <label class="labels">
+          <input type="radio" id="post" class="radioButtons" value="POST" onClick = {this.handleRadioButtons}/>
           POST
         </label>
-        <label>
-          <input type="radio" id="put" name="put" value="PUT" onClick = {this.handleRadioButtons}/>
+        <label class="labels">
+          <input type="radio" id="put" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
           PUT
         </label>
-        <label>
-          <input type="radio" id="delete" name="delete" value="DELETE" onClick = {this.handleRadioButtons}/>
+        <label class="labels">
+          <input type="radio" id="delete" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
           DELETE
         </label>
       </div>
@@ -58,7 +58,7 @@ class App extends React.Component  {
         <span id='methodDiv'>{this.state.method}</span>&nbsp;&nbsp;
         <span id = 'urlDiv'>{this.state.url}</span>
       </div>
-      
+      <div id="emptyDiv">&nbsp;</div>
       <Footer />
       </>
     )
