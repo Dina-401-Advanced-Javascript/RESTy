@@ -14,6 +14,7 @@ The page will reload if you make edits.
 
 ## Deployment
 
+[github pages](https://dina-401-advanced-javascript.github.io/RESTy/)
 [localhost](http://localhost:3000)
 
 ### UML Diagram
@@ -30,7 +31,7 @@ The page will reload if you make edits.
 1. install gh-pages as a dependancy
 2. add two scripts into the package.json
    ```json
-       "predeploy": "npm build",
+       "predeploy": "npm run build",
        "deploy": "gh-pages -d build"
    ```
 3. make a github repo
