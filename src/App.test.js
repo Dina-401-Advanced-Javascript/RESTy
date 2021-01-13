@@ -9,7 +9,7 @@ test('Can initialize the page', () => {
   fireEvent.click(submitButton);
   expect(count).toHaveTextContent(0);
 });
-
+/*
 test('Can do a get', async () => {
   
   render(<App />);
