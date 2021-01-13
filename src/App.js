@@ -2,32 +2,43 @@ import React from 'react';
 import Header from './header';
 import Footer from './footer';
 import Form from './form';
+import Results from './results';
 
 import './app.scss';
 
 //this tells us it is a react component
 class App extends React.Component  {
-
-  /*
-  handleClick = event => {
-    event.preventDefault();
-    this.setState({ url: this.state.inputURL });
-    this.setState({ method: this.state.inputMethod });
+  constructor(props){
+    super(props);
+    this.state = {
+      count: 0,
+      headers: {},
+      results: []
+    }
   }
 
-  handleChange = event => {
-    this.setState({inputURL : event.target.value});
+  getResults = (count,headers,results) => {
+    console.log('count',count);
+    this.setState({
+      count,
+      headers,
+      results
+    });
+    console.log('state',this.state);
   }
-  
-  handleRadioButtons = event => {
-    this.setState({inputMethod: event.target.value});
-  }*/
 
   render() {
     return (
       <>
       <Header />
-      <Form />
+      <Form 
+        getResults = {this.getResults}
+      />
+      <Results 
+        count = {this.state.count}
+        headers = {this.state.headers}
+        results = {this.state.results}
+      />
       <Footer />
       </>
     )
@@ -36,32 +47,3 @@ class App extends React.Component  {
 
 
 export default App;
-
-/*
-<input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
-      <br/>
-      <div id='radioButtons'>
-        <label class="labels">
-          <input type="radio" class="radioButtons" name="get" value="GET" onClick = {this.handleRadioButtons}/>
-          GET
-        </label>
-        <label class="labels">
-          <input type="radio" id="post" class="radioButtons" value="POST" onClick = {this.handleRadioButtons}/>
-          POST
-        </label>
-        <label class="labels">
-          <input type="radio" id="put" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
-          PUT
-        </label>
-        <label class="labels">
-          <input type="radio" id="delete" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
-          DELETE
-        </label>
-      </div>
-      <button onClick={this.handleClick}>Go</button>
-      <div id = 'requestInfo'>
-        <span id='methodDiv'>{this.state.method}</span>&nbsp;&nbsp;
-        <span id = 'urlDiv'>{this.state.url}</span>
-      </div>
-      <div id="emptyDiv">&nbsp;</div>
-       */

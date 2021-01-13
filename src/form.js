@@ -9,49 +9,56 @@ class Form extends React.Component{
       url: ''
     }
   }
-handleClick = event => {
+
+  handleClick = async (event) => {
     event.preventDefault();
-    this.setState({ url: this.state.inputURL });
-    this.setState({ method: this.state.inputMethod });
+    var response;
+    //call the API the user provided
+    const api = await fetch(this.state.url, {method: this.state.method, mode: 'cors'})
+      .then(res => {
+        console.log(res);
+        if (res.status !== 200) return;
+        response = res;
+        return res.json();
+      });
+    console.log('COUNT', api.length);
+    console.log('HEADERS', response.headers);
+    console.log('API' , api);
+    this.props.getResults(api.length,response.headers, api);    
   }
 
   handleChange = event => {
-    this.setState({inputURL : event.target.value});
+    this.setState({url : event.target.value});
   }
   
   handleRadioButtons = event => {
-    this.setState({inputMethod: event.target.value});
+    this.setState({method: event.target.value});
   }
 
   render(){
     return(
       <>
         <input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
-      <br/>
-      <div id='radioButtons'>
-        <label class="labels">
-          <input type="radio" class="radioButtons" name="radioButton" value="GET" onClick = {this.handleRadioButtons}/>
-          GET
-        </label>
-        <label class="labels">
-          <input type="radio" class="radioButtons" name="radioButton" value="POST" onClick = {this.handleRadioButtons}/>
-          POST
-        </label>
-        <label class="labels">
-          <input type="radio" name="radioButton" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
-          PUT
-        </label>
-        <label class="labels">
-          <input type="radio" name="radioButton" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
-          DELETE
-        </label>
-      </div>
-      <button onClick={this.handleClick}>Go</button>
-      <div id = 'requestInfo'>
-        <span id='methodDiv'>{this.state.method}</span>&nbsp;&nbsp;
-        <span id = 'urlDiv'>{this.state.url}</span>
-      </div>
-      <div id="emptyDiv">&nbsp;</div>
+        <br/>
+        <div id='radioButtons'>
+          <label class="labels">
+            <input type="radio" selected class="radioButtons" name="radioButton" value="GET" onClick = {this.handleRadioButtons}/>
+            GET
+          </label>
+          <label class="labels">
+            <input type="radio" class="radioButtons" name="radioButton" value="POST" onClick = {this.handleRadioButtons}/>
+            POST
+          </label>
+          <label class="labels">
+            <input type="radio" name="radioButton" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
+            PUT
+          </label>
+          <label class="labels">
+            <input type="radio" name="radioButton" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
+            DELETE
+          </label>
+        </div>
+        <button onClick={this.handleClick}>Go</button>
       </>
     )
   }
