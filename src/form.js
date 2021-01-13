@@ -12,19 +12,21 @@ class Form extends React.Component{
 
   handleClick = async (event) => {
     event.preventDefault();
-    var response;
+    var headers = [];
     //call the API the user provided
     const api = await fetch(this.state.url, {method: this.state.method, mode: 'cors'})
       .then(res => {
-        console.log(res);
         if (res.status !== 200) return;
-        response = res;
+        
+        //to get the headers, we have to iterate through them using headers.entries()
+        for (var pair of res.headers.entries()) { // accessing the entries
+          var obj = {};
+          obj[pair[0]] = pair[1];
+          headers.push(obj);
+        }     
         return res.json();
       });
-    console.log('COUNT', api.length);
-    console.log('HEADERS', response.headers);
-    console.log('API' , api);
-    this.props.getResults(api.length,response.headers, api);    
+    this.props.getResults(api.length,headers, api);    
   }
 
   handleChange = event => {
@@ -38,27 +40,27 @@ class Form extends React.Component{
   render(){
     return(
       <>
-        <input type='text' id='url' placeholder="Enter URL" onChange={this.handleChange}/> 
+        <input type='text' id='url' data-testid="url" placeholder="Enter URL" onChange={this.handleChange}/> 
         <br/>
-        <div id='radioButtons'>
-          <label class="labels">
-            <input type="radio" selected class="radioButtons" name="radioButton" value="GET" onClick = {this.handleRadioButtons}/>
+        <div id='radioButtons' data-testid="method">
+          <label className ="labels">
+            <input type="radio" selected className ="radioButtons" name="radioButton" value="GET" onClick = {this.handleRadioButtons}/>
             GET
           </label>
-          <label class="labels">
-            <input type="radio" class="radioButtons" name="radioButton" value="POST" onClick = {this.handleRadioButtons}/>
+          <label className ="labels">
+            <input type="radio" className ="radioButtons" name="radioButton" value="POST" onClick = {this.handleRadioButtons}/>
             POST
           </label>
-          <label class="labels">
-            <input type="radio" name="radioButton" class="radioButtons"value="PUT" onClick = {this.handleRadioButtons}/>
+          <label className ="labels">
+            <input type="radio" className ="radioButton" value="PUT" onClick = {this.handleRadioButtons}/>
             PUT
           </label>
-          <label class="labels">
-            <input type="radio" name="radioButton" class="radioButtons" value="DELETE" onClick = {this.handleRadioButtons}/>
+          <label className ="labels">
+            <input type="radio" className ="radioButton" value="DELETE" onClick = {this.handleRadioButtons}/>
             DELETE
           </label>
         </div>
-        <button onClick={this.handleClick}>Go</button>
+        <button data-testid = "submit-button" onClick={this.handleClick}>Go</button>
       </>
     )
   }
