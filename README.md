@@ -14,6 +14,7 @@ The page will reload if you make edits.
 
 ## Deployment
 
+[github pages](https://dina-401-advanced-javascript.github.io/RESTy/)
 [localhost](http://localhost:3000)
 
 ### UML Diagram
