@@ -25,22 +25,20 @@ class Form extends React.Component{
       options.body = this.state.body;
       options.headers = { "content-type": "application/json; charset=UTF-8" };
     }
-    //const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
     try{
-      const api = await fetch(this.state.url, options)
-        .then(res => {
-          if (res.status !== 200) return;
-          
-          //to get the headers, we have to iterate through them using headers.entries()
-          for (var pair of res.headers.entries()) { // accessing the entries
-            var obj = {};
-            obj[pair[0]] = pair[1];
-            headers.push(obj);
-          }     
-          return res.json();
-        });
+      const res = await fetch(proxyurl + this.state.url, options);
+      if (res.status !== 200) throw new Error('Error with status code: ' + res.status);
+      //to get the headers, we have to iterate through them using headers.entries()
+      for (var pair of res.headers.entries()) { // accessing the entries
+        var obj = {};
+        obj[pair[0]] = pair[1];
+        headers.push(obj);
+      }     
+  
+      const data = await res.json();
       this.setState({history: [...this.state.history, { method: this.state.method, url: this.state.url, body: this.state.body}]});
-      this.props.getResults(api?api.length:0,headers, api, this.state.history);    
+      this.props.getResults(data?data.length:0,headers,data, this.state.history);    
     }
     catch(error){
       this.props.loading(false);
@@ -65,7 +63,7 @@ class Form extends React.Component{
   render(){
     return(
       <div id="form">
-        <input type='text' id='url' data-testid="url" placeholder="Enter URL" onChange={this.handleURLChange}/> 
+        <input type='text' id='url' data-testid="url" value={this.props.inputFields?this.props.inputFields.url:''} placeholder="Enter URL" onChange={this.handleURLChange}/> 
         <br/>
         <textarea id='body' data-testid="body" placeholder="Enter request body in json format" onChange={this.handleBodyChange}/> 
         <br/>
