@@ -11,7 +11,7 @@ class History extends React.Component{
           <li key={idx}>
             <div><b>method:</b> {entry.method}</div>
             <div><b>url:</b> <a target="_blank" rel="noreferrer" href={entry.url}>{entry.url}</a></div>
-            {entry.body? 
+            {entry.body.length? 
               <div>body: {JSON.stringify(entry.body)}</div>
             :''}
           </li>
