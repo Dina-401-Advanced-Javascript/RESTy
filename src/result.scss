@@ -4,10 +4,16 @@
   background-color: gainsboro;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: left;
-  margin: auto;
-  width: 80%;
+  width: 100%;
+  padding-bottom: 20px;
+  margin-left: 20px;
 }
-
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
 .content {
   margin-left: 10px;
 }

@@ -1,7 +1,6 @@
 #url {
   border: 1px solid grey;
-  width: 80%;
-  height: 1vw;
+  width: 100%;
 }
 
 #radioButtons {
@@ -16,4 +15,16 @@ button {
   margin: 10px;
   padding: 5px;
   width: 5vw;
+}
+
+#body{
+  margin-top: 10px;
+  width: 100%;
+  height: 8em;
+}
+
+#form{
+  padding-left: 20px;
+  margin: auto;
+  width: 100%;
 }
