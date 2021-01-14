@@ -14,8 +14,13 @@ class App extends React.Component  {
       history: [],
       count: 0,
       headers: {},
-      results: []
+      results: [],
+      loading: false
     }
+  }
+
+  loading = (bool) =>{
+    this.setState({loading:bool});
   }
 
   getResults = (count,headers,results, history) => {
@@ -23,7 +28,8 @@ class App extends React.Component  {
       count,
       headers,
       results,
-      history
+      history,
+      loading: false
     });
     console.log('STATE = ', this.state);
   }
@@ -41,12 +47,14 @@ class App extends React.Component  {
           </div>
           <div id="content">
             <Form 
+              loading = {this.loading}
               getResults = {this.getResults}
             />
             <Results
               count = {this.state.count}
               headers = {this.state.headers}
               results = {this.state.results}
+              loading = {this.state.loading}
             />
           </div>
         </div>

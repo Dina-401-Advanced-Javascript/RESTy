@@ -14,6 +14,7 @@ class Form extends React.Component{
 
   handleClick = async (event) => {
     event.preventDefault();
+    this.props.loading(true);
     var headers = [];
     //call the API the user provided
     var options;
@@ -23,7 +24,7 @@ class Form extends React.Component{
       options = {method: this.state.method, body: JSON.stringify(this.state.body), mode: 'cors'}
     }
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
     try{
       const api = await fetch(proxyurl + this.state.url, options)
         .then(res => {
@@ -41,6 +42,7 @@ class Form extends React.Component{
       this.props.getResults(api?api.length:0,headers, api, this.state.history);    
     }
     catch(error){
+      this.props.loading(false);
       console.log(error);
     }
     
