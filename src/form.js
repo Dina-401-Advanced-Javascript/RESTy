@@ -17,16 +17,17 @@ class Form extends React.Component{
     this.props.loading(true);
     var headers = [];
     //call the API the user provided
-    var options;
-    if (this.state.method === 'GET' || this.state.method === 'DELETE') {
-      options = {method: this.state.method, mode: 'cors'}
-    } else {
-      options = {method: this.state.method, body: JSON.stringify(this.state.body), mode: 'cors'}
+    var options = {
+        method: this.state.method, 
+        //mode: 'cors'
+      };
+    if (this.state.method !== 'GET'  && this.state.method !== 'DELETE') {
+      options.body = this.state.body;
+      options.headers = { "content-type": "application/json; charset=UTF-8" };
     }
-
-    const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
+    //const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
     try{
-      const api = await fetch(proxyurl + this.state.url, options)
+      const api = await fetch(this.state.url, options)
         .then(res => {
           if (res.status !== 200) return;
           

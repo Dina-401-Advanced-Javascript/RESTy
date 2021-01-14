@@ -15,12 +15,25 @@ class App extends React.Component  {
       count: 0,
       headers: {},
       results: [],
-      loading: false
+      loading: false,
+      inputFields: {}
     }
   }
 
   loading = (bool) =>{
     this.setState({loading:bool});
+  }
+
+  setInputFields = (object) => {
+    this.setState({
+      inputFields: 
+        { 
+          url: object.url, 
+          method: object.method, 
+          body: object.body
+        }
+      }
+    );
   }
 
   getResults = (count,headers,results, history) => {
@@ -31,11 +44,9 @@ class App extends React.Component  {
       history,
       loading: false
     });
-    console.log('STATE = ', this.state);
   }
 
   render() {
-    console.log(this.state.history);
     return (
       <>
         <Header />
@@ -43,10 +54,12 @@ class App extends React.Component  {
           <div id="history">
             <h3>History</h3>
             <History 
+              setInputFields = {this.setInputFields}
               history = {this.state.history}/>
           </div>
           <div id="content">
             <Form 
+              inputFields = {this.state.inputFields}
               loading = {this.loading}
               getResults = {this.getResults}
             />
