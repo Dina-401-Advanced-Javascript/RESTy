@@ -14,6 +14,7 @@ class Form extends React.Component{
 
   handleClick = async (event) => {
     event.preventDefault();
+    this.props.loading(true);
     var headers = [];
     //call the API the user provided
     var options;
@@ -41,6 +42,7 @@ class Form extends React.Component{
       this.props.getResults(api?api.length:0,headers, api, this.state.history);    
     }
     catch(error){
+      this.props.loading(false);
       console.log(error);
     }
     
