@@ -23,7 +23,7 @@ class Form extends React.Component{
       options = {method: this.state.method, body: JSON.stringify(this.state.body), mode: 'cors'}
     }
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://dina-cors-anywhere.herokuapp.com/";
     try{
       const api = await fetch(proxyurl + this.state.url, options)
         .then(res => {
