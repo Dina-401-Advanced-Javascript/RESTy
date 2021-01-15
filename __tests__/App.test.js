@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import App from './App';
+import App from '../src/components/app/app';
 import './app.scss';
 
 test('Can initialize the page', () => {
