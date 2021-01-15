@@ -9,6 +9,7 @@ class Form extends React.Component{
       method: 'GET',
       url: '',
       body: {}
+    
     }
   }
 
@@ -37,18 +38,21 @@ class Form extends React.Component{
       }     
   
       const data = await res.json();
+      //update the history with the url, method and body we just ran.
+      //todo - check for uniqueness
       this.setState({history: [...this.state.history, { method: this.state.method, url: this.state.url, body: this.state.body}]});
+
+      //call the parent App with the data we retrieved so it can send it to the results component
       this.props.getResults(data?data.length:0,headers,data, this.state.history);    
     }
     catch(error){
       this.props.loading(false);
       console.log(error);
     }
-    
-    
   }
 
   handleURLChange = event => {
+    event.preventDefault();
     this.setState({url : event.target.value});
   }
   
@@ -61,11 +65,12 @@ class Form extends React.Component{
   }
 
   render(){
+    console.log('props',this.props.inputFields);
     return(
       <div id="form">
-        <input type='text' id='url' data-testid="url" value={this.props.inputFields?this.props.inputFields.url:''} placeholder="Enter URL" onChange={this.handleURLChange}/> 
+        <input type='text' id='url' data-testid="url" placeholder="Enter URL" onChange={this.handleURLChange} value={this.state.url}/> 
         <br/>
-        <textarea id='body' data-testid="body" placeholder="Enter request body in json format" onChange={this.handleBodyChange}/> 
+        <textarea id='body' data-testid="body" placeholder="Enter request body in json format" onChange={this.handleBodyChange} value={this.state.body}/> 
         <br/>
         <div id='radioButtons' data-testid="method">
           <label className ="labels">
