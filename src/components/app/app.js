@@ -19,7 +19,9 @@ class App extends React.Component  {
       headers: {},
       results: [],
       loading: false,
-      inputFields: {}
+      method: 'GET',
+      url: '',
+      body: {}
     }
   }
 
@@ -27,14 +29,24 @@ class App extends React.Component  {
     this.setState({loading:bool});
   }
 
-  setInputFields = (method, url, body) => {
+  //when the history component tells you what index the user clicked on,
+  //update these 3 fields 
+  setInputFields = (index) => {
+    
     this.setState({
-      inputFields: 
-        { url, method, body}
-      }
-    );
-    console.log('input fields = ', this.state.inputFields);
+      url: this.state.history[index].url,
+      method: this.state.history[index].method,
+      body: this.state.history[index].body
+    });
   }
+  // setInputFields = (method, url, body) => {
+  //   this.setState({
+  //     inputFields: 
+  //       { url, method, body}
+  //     }
+  //   );
+  //   console.log('input fields = ', this.state.inputFields);
+  // }
 
   getResults = (count,headers,results, history) => {
     this.setState({
@@ -60,7 +72,9 @@ class App extends React.Component  {
               </div>
               <div id="content">
                 <Form 
-                  inputFields = {this.state.inputFields}
+                  method = {this.state.method}
+                  url = {this.state.url}
+                  body = {this.state.body}
                   loading = {this.loading}
                   getResults = {this.getResults}
                 />

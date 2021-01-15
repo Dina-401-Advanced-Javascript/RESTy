@@ -6,10 +6,9 @@ class Form extends React.Component{
     super(properties);
     this.state = {
       history: [],
-      method: 'GET',
-      url: '',
-      body: {}
-    
+      method: this.props.method,
+      url: this.props.url,
+      body: this.props.body    
     }
   }
 
@@ -65,12 +64,12 @@ class Form extends React.Component{
   }
 
   render(){
-    console.log('props',this.props.inputFields);
+    console.log('props',this.props.method, this.props.url, this.props.body);
     return(
       <div id="form">
         <input type='text' id='url' data-testid="url" placeholder="Enter URL" onChange={this.handleURLChange} value={this.state.url}/> 
         <br/>
-        <textarea id='body' data-testid="body" placeholder="Enter request body in json format" onChange={this.handleBodyChange} value={this.state.body}/> 
+        <textarea id='body' data-testid="body" placeholder="Enter request body in json format" onChange={this.handleBodyChange} value={JSON.stringify(this.state.body)}/> 
         <br/>
         <div id='radioButtons' data-testid="method">
           <label className ="labels">
